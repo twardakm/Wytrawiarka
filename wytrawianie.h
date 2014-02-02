@@ -18,15 +18,27 @@
 #define PRZYCISK_NAPOW_P PC2
 #define PRZYCISK_NAPOW_NR 2
 
+#define PRZEKAZNIK_KTORY_DDR DDRC
+#define PRZEKAZNIK_KTORY_PORT PORTC
+#define PRZEKAZNIK_TEMP_P PC3
+#define PRZEKAZNIK_NAPOW_P PC4
+
 #define OPOZNIENIE_MS 200
+#define DOKLADNOSC 0.05
 
 volatile unsigned short int TEMPERATURA;
 volatile unsigned short int NAPOWIETRZANIE;
 volatile unsigned short int AKTYWNY; //1 - temperatura, 2 - napowietrzanie;
+volatile unsigned short int GRZANIE; //1 - gdy grzeje, 0 - gdy nie
+volatile unsigned short int MIESZANIE; //1 - gdy miesza, 0 - gdy nie
 
+void przekazniki_init();
 void przyciski_init();
+void sprawdz_grzanie(int aktualna_temp);
 void ustaw_napow_aktywny();
 void ustaw_temp_aktywny();
+void wlacz_grzanie();
+void wylacz_grzanie();
 void wytrawianie_init();
 
 #endif // _WYTRAWIANIE_H

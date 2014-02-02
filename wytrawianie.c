@@ -4,6 +4,15 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+void przekazniki_init()
+{
+    PRZEKAZNIK_KTORY_DDR |= (1 << PRZEKAZNIK_NAPOW_P) | (1 << PRZEKAZNIK_TEMP_P);
+    PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_NAPOW_P) | (1 << PRZEKAZNIK_TEMP_P); //domyœlnie wylaczone
+
+    GRZANIE = 0;
+    MIESZANIE = 0;
+}
+
 void przyciski_init()
 {
     PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P));
@@ -15,6 +24,21 @@ void przyciski_init()
 
     MCUCR = 0;
     GICR = (1 << INT1) | (1 << INT0);
+}
+
+void sprawdz_grzanie(int aktualna_temp)
+{
+    if (GRZANIE == 1)
+    {
+        if (aktualna_temp < (TEMPERATURA + TEMPERATURA*DOKLADNOSC))
+            return;
+        wylacz_grzanie();
+    }
+    else
+    {
+        if (aktualna_temp < (TEMPERATURA - TEMPERATURA*DOKLADNOSC))
+            wlacz_grzanie();
+    }
 }
 
 void ustaw_napow_aktywny()
@@ -33,6 +57,22 @@ void ustaw_temp_aktywny()
     LCD_GoTo(15,0);
     LCD_WriteText("+");
     AKTYWNY = 1;
+}
+
+void wlacz_grzanie()
+{
+    PRZEKAZNIK_KTORY_PORT |= (1 << PRZEKAZNIK_TEMP_P);
+    LCD_GoTo(14,0);
+    LCD_WriteText("*");
+    GRZANIE = 1;
+}
+
+void wylacz_grzanie()
+{
+    PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_TEMP_P);
+    LCD_GoTo(14,0);
+    LCD_WriteText(" ");
+    GRZANIE = 0;
 }
 
 void wytrawianie_init()

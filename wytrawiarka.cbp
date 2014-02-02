@@ -31,9 +31,10 @@
 			</Environment>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
 			<Add option="-mmcu=atmega8" />
-			<Add option="-DF_CPU=16000000UL" />
+			<Add option="-O2" />
+			<Add option="-Wall" />
+			<Add option="-DF_CPU=16000000" />
 		</Compiler>
 		<Linker>
 			<Add option="-mmcu=atmega8" />
@@ -46,16 +47,37 @@
 			<Add after="avr-objcopy --no-change-warnings -j .lock --change-section-lma .lock=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lock" />
 			<Add after="avr-objcopy --no-change-warnings -j .signature --change-section-lma .signature=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).sig" />
 			<Add after="avr-objcopy --no-change-warnings -j .fuse --change-section-lma .fuse=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse" />
-			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x00 0x01 -offset  0x00 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lfs -Intel " />
-			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x01 0x02 -offset -0x01 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hfs -Intel " />
+			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x00 0x01 -offset  0x00 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lfs -Intel" />
+			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x01 0x02 -offset -0x01 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hfs -Intel" />
 		</ExtraCommands>
+		<Unit filename="ADC.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ADC.h" />
+		<Unit filename="HD44780.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="HD44780.h" />
 		<Unit filename="fuse.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="wytrawianie.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="wytrawianie.h" />
 		<Extensions>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 			<code_completion />
 			<envvars />
 			<debugger />

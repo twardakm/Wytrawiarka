@@ -2,7 +2,7 @@
 1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\fuse.c
 	<avr/io.h>
 
-1391368730 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
+1391370667 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -20,22 +20,24 @@
 	<avr/io.h>
 	<util/delay.h>
 
-1391363179 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
+1391371808 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<stdio.h>
 	<stdlib.h>
 	"ADC.h"
 	"HD44780.h"
+	"wytrawianie.h"
 
 1391364561 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.h
 
-1391369058 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.h
+1391371677 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.h
 	"HD44780.h"
 
-1391368705 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.c
+1391371768 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.c
 	"wytrawianie.h"
 	"HD44780.h"
 	<stdlib.h>
 	<avr/interrupt.h>
+	<util/delay.h>
 

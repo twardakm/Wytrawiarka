@@ -15,6 +15,7 @@ int main(void)
     LCD_Tekst_startowy();
     wytrawianie_init();
     ADC_Init();
+    przekazniki_init();
     sei();
 
     while(1)

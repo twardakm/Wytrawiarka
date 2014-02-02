@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "ADC.h"
 #include "HD44780.h"
+#include "wytrawianie.h"
 
 void ADC_Init()
 {
@@ -24,6 +25,8 @@ ISR(ADC_vect)
     else
     {
         PRESKALER = 0;
+        //wlaczenie badz wylaczenie grzania
+        sprawdz_grzanie(ADCH-ODNIESIENIE);
         char *temp = Int_to_char(ADCH - ODNIESIENIE, 8); //wzor strona 199
         LCD_GoTo(9, 0);
         LCD_WriteText(temp);
