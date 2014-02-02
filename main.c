@@ -16,6 +16,7 @@ int main(void)
     wytrawianie_init();
     ADC_Init();
     przekazniki_init();
+    timer_init();
     sei();
 
     while(1)

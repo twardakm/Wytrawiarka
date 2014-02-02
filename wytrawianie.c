@@ -41,6 +41,16 @@ void sprawdz_grzanie(int aktualna_temp)
     }
 }
 
+void timer_init()
+{
+    TCCR1B |= (1 << CS12); //preskaler 256
+    TIMSK |= (1 << TOIE1); //wlaczenie przerwania - okolo 1 s
+    TIMER_MIESZANIE = 0;
+    TIMER_ILE_SEK = 0;
+    MIESZANIE_ILE_BEZ = 0;
+    MIESZANIE_ILE_Z = 0;
+}
+
 void ustaw_napow_aktywny()
 {
     LCD_GoTo(15,0);
@@ -67,12 +77,32 @@ void wlacz_grzanie()
     GRZANIE = 1;
 }
 
+void wlacz_mieszanie()
+{
+    PRZEKAZNIK_KTORY_PORT |= (1 << PRZEKAZNIK_NAPOW_P);
+    LCD_GoTo(14,1);
+    LCD_WriteText("*");
+    MIESZANIE = 1;
+    MIESZANIE_ILE_BEZ = 0;
+    MIESZANIE_ILE_Z = 1;
+}
+
 void wylacz_grzanie()
 {
     PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_TEMP_P);
     LCD_GoTo(14,0);
     LCD_WriteText(" ");
     GRZANIE = 0;
+}
+
+void wylacz_mieszanie()
+{
+    PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_NAPOW_P);
+    LCD_GoTo(14,1);
+    LCD_WriteText(" ");
+    MIESZANIE = 0;
+    MIESZANIE_ILE_BEZ = 1;
+    MIESZANIE_ILE_Z = 0;
 }
 
 void wytrawianie_init()
@@ -148,4 +178,38 @@ ISR(INT1_vect)
     GICR = 0;
     _delay_ms(OPOZNIENIE_MS);
     GICR = (1 << INT1) | (1 << INT0);
+}
+
+ISR(TIMER1_OVF_vect)
+{
+    if (TIMER_ILE_SEK < SEKUND)
+        TIMER_ILE_SEK++;
+    else
+    {
+        TIMER_ILE_SEK = 0;
+        if (NAPOWIETRZANIE == NAPOW_MAKS)
+        {
+            if (!MIESZANIE)
+                wlacz_mieszanie();
+        }
+        else if (NAPOWIETRZANIE == 0)
+        {
+            if (MIESZANIE)
+                wylacz_mieszanie();
+        }
+        else if (MIESZANIE)
+        {
+            if (MIESZANIE_ILE_Z >= NAPOWIETRZANIE)
+                wylacz_mieszanie();
+            else
+                MIESZANIE_ILE_Z++;
+        }
+        else if (!MIESZANIE)
+        {
+            if (MIESZANIE_ILE_BEZ >= NAPOW_MAKS - NAPOWIETRZANIE)
+                wlacz_mieszanie();
+            else
+                MIESZANIE_ILE_BEZ++;
+        }
+    }
 }

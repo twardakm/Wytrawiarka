@@ -26,19 +26,28 @@
 #define OPOZNIENIE_MS 200
 #define DOKLADNOSC 0.05
 
+#define SEKUND 7
+
 volatile unsigned short int TEMPERATURA;
 volatile unsigned short int NAPOWIETRZANIE;
 volatile unsigned short int AKTYWNY; //1 - temperatura, 2 - napowietrzanie;
 volatile unsigned short int GRZANIE; //1 - gdy grzeje, 0 - gdy nie
 volatile unsigned short int MIESZANIE; //1 - gdy miesza, 0 - gdy nie
+volatile unsigned short int TIMER_MIESZANIE;
+volatile unsigned short int TIMER_ILE_SEK;
+volatile unsigned short int MIESZANIE_ILE_BEZ;
+volatile unsigned short int MIESZANIE_ILE_Z;
 
 void przekazniki_init();
 void przyciski_init();
 void sprawdz_grzanie(int aktualna_temp);
+void timer_init();
 void ustaw_napow_aktywny();
 void ustaw_temp_aktywny();
 void wlacz_grzanie();
+void wlacz_mieszanie();
 void wylacz_grzanie();
+void wylacz_mieszanie();
 void wytrawianie_init();
 
 #endif // _WYTRAWIANIE_H
