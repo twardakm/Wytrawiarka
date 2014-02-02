@@ -17,7 +17,14 @@ int main(void)
     ADC_Init();
     sei();
 
-    while(1);
+    while(1)
+    {
+        if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_TEMP_NR))
+            ustaw_temp_aktywny();
+        if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_NAPOW_NR))
+            ustaw_napow_aktywny();
+        _delay_ms(50);
+    }
 
     return 0;
 }

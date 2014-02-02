@@ -1,6 +1,38 @@
 #include "wytrawianie.h"
 #include "HD44780.h"
 #include <stdlib.h>
+#include <avr/interrupt.h>
+
+void przyciski_init()
+{
+    PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P));
+    PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P); // stan wysoki na przycisku, niski uruchamia
+
+    //INT0 i INT1 opadaj¹ce zbocze wyzwala przerwanie
+    DDRD &= ~((1 << PD2) | (1 << PD3));
+    PORTD |= (1 << PD2) | (1 << PD3);
+
+    MCUCR = (1 << ISC11) | (1 << ISC01);
+    GICR = (1 << INT1) | (1 << INT0);
+}
+
+void ustaw_napow_aktywny()
+{
+    LCD_GoTo(15,0);
+    LCD_WriteText(" ");
+    LCD_GoTo(15,1);
+    LCD_WriteText("+");
+    AKTYWNY = 2;
+}
+
+void ustaw_temp_aktywny()
+{
+    LCD_GoTo(15,1);
+    LCD_WriteText(" ");
+    LCD_GoTo(15,0);
+    LCD_WriteText("+");
+    AKTYWNY = 1;
+}
 
 void wytrawianie_init()
 {
@@ -27,4 +59,46 @@ void wytrawianie_init()
 
     LCD_GoTo(15,0);
     LCD_WriteText("+");
+
+    przyciski_init();
+}
+
+ISR(INT0_vect)
+{
+    if (AKTYWNY == 1) //temperatura
+    {
+        TEMPERATURA++;
+        char *temp = Int_to_char(TEMPERATURA, 2);
+        LCD_GoTo(12,0);
+        LCD_WriteText(temp);
+        free(temp);
+    }
+    if (AKTYWNY == 2) //temperatura
+    {
+        NAPOWIETRZANIE++;
+        char *temp = Int_to_char(NAPOWIETRZANIE, 2);
+        LCD_GoTo(10,1);
+        LCD_WriteText(temp);
+        free(temp);
+    }
+}
+
+ISR(INT1_vect)
+{
+    if (AKTYWNY == 1) //temperatura
+    {
+        TEMPERATURA--;
+        char *temp = Int_to_char(TEMPERATURA, 2);
+        LCD_GoTo(12,0);
+        LCD_WriteText(temp);
+        free(temp);
+    }
+    if (AKTYWNY == 2) //temperatura
+    {
+        NAPOWIETRZANIE--;
+        char *temp = Int_to_char(NAPOWIETRZANIE, 2);
+        LCD_GoTo(10,1);
+        LCD_WriteText(temp);
+        free(temp);
+    }
 }
