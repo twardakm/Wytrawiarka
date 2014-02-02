@@ -103,6 +103,7 @@ void LCD_Initalize(void);
 
 //Marcin Twardak
 char * Int_to_char(int i, int lenght);
+void LCD_Tekst_startowy();
 
 //-------------------------------------------------------------------------------------------------
 //

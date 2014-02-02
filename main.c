@@ -11,6 +11,7 @@
 int main(void)
 {
     LCD_Initalize();
+    LCD_Tekst_startowy();
     ADC_Init();
     sei();
 

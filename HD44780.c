@@ -164,6 +164,14 @@ char * Int_to_char(int i, int lenght)
     return temp;
 }
 
+void LCD_Tekst_startowy()
+{
+    LCD_GoTo(3,0);
+    LCD_WriteText("TEMP: ");
+    LCD_GoTo(3,1);
+    LCD_WriteText("NAPOW: ");
+}
+
 //-------------------------------------------------------------------------------------------------
 //
 // Koniec pliku HD44780.c

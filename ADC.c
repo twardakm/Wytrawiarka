@@ -9,7 +9,7 @@ void ADC_Init()
 {
     ADCSRA |= (1 << ADEN) | (1 << ADFR) | (1 << ADIE) |
     (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);//ADEN: ADC Enable, free running, interrupt preskaler 128
-    ADMUX = (1 << REFS1) | (1 << REFS0); //wewntrzne napicie odniesienia 2.56 V, wejœcie ADC0
+    ADMUX = (1 << REFS1) | (1 << REFS0) | (1 << ADLAR); //wewntrzne napicie odniesienia 2.56 V, wejœcie ADC0, do lewej strony
     DDRC &= ~(1 << ADCTERM); //wejscie ADC
     PRESKALER = 0;
 
@@ -24,7 +24,8 @@ ISR(ADC_vect)
     else
     {
         PRESKALER = 0;
-        char *temp = Int_to_char(ADC, 8);
+        char *temp = Int_to_char(ADCH - ODNIESIENIE, 8); //wzor strona 199
+        LCD_GoTo(9, 0);
         LCD_WriteText(temp);
         free(temp);
     }
