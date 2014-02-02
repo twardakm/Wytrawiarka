@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\fuse.c
+	<avr/io.h>
+
+1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
+	<avr/io.h>
+
