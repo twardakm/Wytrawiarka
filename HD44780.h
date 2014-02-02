@@ -101,6 +101,9 @@ void LCD_Clear(void);
 void LCD_Home(void);
 void LCD_Initalize(void);
 
+//Marcin Twardak
+char * Int_to_char(int i, int lenght);
+
 //-------------------------------------------------------------------------------------------------
 //
 // Koniec pliku HD44780.h

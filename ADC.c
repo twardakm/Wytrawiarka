@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "ADC.h"
 #include "HD44780.h"
 
@@ -23,8 +24,8 @@ ISR(ADC_vect)
     else
     {
         PRESKALER = 0;
-        char Temp[8];
-        sprintf(Temp, "%i", ADC);
-        LCD_WriteText(Temp);
+        char *temp = Int_to_char(ADC, 8);
+        LCD_WriteText(temp);
+        free(temp);
     }
 }

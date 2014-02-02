@@ -13,14 +13,15 @@
 1391338649 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.c
 	"HD44780.h"
 
-1391348968 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.h
+1391360803 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.h
 	<avr/io.h>
 	<util/delay.h>
 
-1391359334 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
+1391361140 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<stdio.h>
+	<stdlib.h>
 	"ADC.h"
 	"HD44780.h"
 

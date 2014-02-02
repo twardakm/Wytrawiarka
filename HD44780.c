@@ -14,6 +14,8 @@
 // Marcin Twardak
 
 #include "HD44780.h"
+#include <stdlib.h>
+#include <stdio.h>
 //-------------------------------------------------------------------------------------------------
 //
 // Funkcja wystawiaj¹ca pó³bajt na magistralê danych
@@ -152,6 +154,14 @@ void LCD_Initalize(void)
     _delay_ms(2);
     LCD_WriteCommand(HD44780_ENTRY_MODE | HD44780_EM_SHIFT_CURSOR | HD44780_EM_INCREMENT);// inkrementaja adresu i przesuwanie kursora
     LCD_WriteCommand(HD44780_DISPLAY_ONOFF | HD44780_DISPLAY_ON | HD44780_CURSOR_OFF | HD44780_CURSOR_NOBLINK); // w³¹cz LCD, bez kursora i mrugania
+}
+
+//Marcin Twardak
+char * Int_to_char(int i, int lenght)
+{
+    char *temp = malloc(sizeof(char) * lenght + 1);
+    sprintf(temp, "%i", i);
+    return temp;
 }
 
 //-------------------------------------------------------------------------------------------------
