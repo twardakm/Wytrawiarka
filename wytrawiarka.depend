@@ -5,10 +5,16 @@
 1391338066 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
 	<avr/io.h>
 
-1391338081 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.c
+1391338649 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.c
 	"HD44780.h"
 
 1391338046 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.h
 	<avr/io.h>
 	<util/delay.h>
+
+1391347383 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
+	<avr/io.h>
+	"ADC.h"
+
+1391347389 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.h
 
