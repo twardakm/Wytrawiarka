@@ -2,17 +2,18 @@
 #include "HD44780.h"
 #include <stdlib.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 void przyciski_init()
 {
     PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P));
     PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P); // stan wysoki na przycisku, niski uruchamia
 
-    //INT0 i INT1 opadaj¹ce zbocze wyzwala przerwanie
+    //INT0 i INT1 niski stan wyzwala przerwanie
     DDRD &= ~((1 << PD2) | (1 << PD3));
     PORTD |= (1 << PD2) | (1 << PD3);
 
-    MCUCR = (1 << ISC11) | (1 << ISC01);
+    MCUCR = 0;
     GICR = (1 << INT1) | (1 << INT0);
 }
 
@@ -65,7 +66,7 @@ void wytrawianie_init()
 
 ISR(INT0_vect)
 {
-    if (AKTYWNY == 1) //temperatura
+    if (AKTYWNY == 1 && TEMPERATURA < TEMP_MAKS) //temperatura
     {
         TEMPERATURA++;
         char *temp = Int_to_char(TEMPERATURA, 2);
@@ -73,7 +74,7 @@ ISR(INT0_vect)
         LCD_WriteText(temp);
         free(temp);
     }
-    if (AKTYWNY == 2) //temperatura
+    if (AKTYWNY == 2 && NAPOWIETRZANIE < NAPOW_MAKS) //temperatura
     {
         NAPOWIETRZANIE++;
         char *temp = Int_to_char(NAPOWIETRZANIE, 2);
@@ -81,11 +82,14 @@ ISR(INT0_vect)
         LCD_WriteText(temp);
         free(temp);
     }
+    GICR = 0;
+    _delay_ms(OPOZNIENIE_MS); //zeby nie napieprzalo za szybko
+    GICR = (1 << INT1) | (1 << INT0);
 }
 
 ISR(INT1_vect)
 {
-    if (AKTYWNY == 1) //temperatura
+    if (AKTYWNY == 1 && TEMPERATURA > TEMP_MIN) //temperatura
     {
         TEMPERATURA--;
         char *temp = Int_to_char(TEMPERATURA, 2);
@@ -93,7 +97,7 @@ ISR(INT1_vect)
         LCD_WriteText(temp);
         free(temp);
     }
-    if (AKTYWNY == 2) //temperatura
+    if (AKTYWNY == 2 && NAPOWIETRZANIE > NAPOW_MIN) //temperatura
     {
         NAPOWIETRZANIE--;
         char *temp = Int_to_char(NAPOWIETRZANIE, 2);
@@ -101,4 +105,7 @@ ISR(INT1_vect)
         LCD_WriteText(temp);
         free(temp);
     }
+    GICR = 0;
+    _delay_ms(OPOZNIENIE_MS);
+    GICR = (1 << INT1) | (1 << INT0);
 }
