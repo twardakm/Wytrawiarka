@@ -2,6 +2,13 @@
 1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\fuse.c
 	<avr/io.h>
 
-1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
+1391338066 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
 	<avr/io.h>
+
+1391338081 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.c
+	"HD44780.h"
+
+1391338046 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\hd44780.h
+	<avr/io.h>
+	<util/delay.h>
 
