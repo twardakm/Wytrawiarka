@@ -1,3 +1,5 @@
+#ifndef _HD44780
+#define _HD44780
 //-------------------------------------------------------------------------------------------------
 // Wyœwietlacz alfanumeryczny ze sterownikiem HD44780
 // Sterowanie w trybie 4-bitowym bez odczytu flagi zajêtoœci
@@ -104,3 +106,4 @@ void LCD_Initalize(void);
 // Koniec pliku HD44780.h
 //
 //-------------------------------------------------------------------------------------------------
+#endif // _HD44780
