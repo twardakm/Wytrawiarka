@@ -1,5 +1,6 @@
 #include "wytrawianie.h"
 #include "HD44780.h"
+#include "EEPROM.h"
 #include <stdlib.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -107,8 +108,12 @@ void wylacz_mieszanie()
 
 void wytrawianie_init()
 {
-    TEMPERATURA = TEMP_DOMYSLNA;
-    NAPOWIETRZANIE = NAPOW_DOMYSLNE;
+    TEMPERATURA = EEPROM_read(EEPROM_TEMP);
+    if (TEMPERATURA < TEMP_MIN || TEMPERATURA > TEMP_MAKS)
+        TEMPERATURA = TEMP_DOMYSLNA;
+    NAPOWIETRZANIE = EEPROM_read(EEPROM_NAPOW);
+    if (NAPOWIETRZANIE < NAPOW_MIN || NAPOWIETRZANIE > NAPOW_MAKS)
+        NAPOWIETRZANIE = NAPOW_DOMYSLNE;
     AKTYWNY = 1;
 
     char *temp = Int_to_char(TEMPERATURA, 2);
@@ -136,8 +141,26 @@ void wytrawianie_init()
 
 void zapisz_domyslne()
 {
+    int *i = malloc(sizeof(int));
+    *i = 0;
     LCD_GoTo(3,0);
-    LCD_WriteText("DUPA");
+    LCD_WriteText("ZAPIS");
+    LCD_GoTo(3,1);
+    LCD_WriteText("      ");
+    LCD_GoTo(3,1);
+    for(*i = 0; *i < 6; (*i)++)
+    {
+        LCD_GoTo(3+*i,1);
+        LCD_WriteText(".");
+        _delay_ms(100);
+    }
+
+    if(EEPROM_read(EEPROM_TEMP) != TEMPERATURA) EEPROM_write(EEPROM_TEMP, TEMPERATURA);
+    if(EEPROM_read(EEPROM_NAPOW) != NAPOWIETRZANIE) EEPROM_write(EEPROM_NAPOW, NAPOWIETRZANIE);
+    free(i);
+
+    while(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR)) {}
+    LCD_Tekst_startowy();
 }
 
 ISR(INT0_vect)
