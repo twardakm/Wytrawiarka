@@ -18,6 +18,12 @@
 #define PRZYCISK_NAPOW_P PC2
 #define PRZYCISK_NAPOW_NR 2
 
+#define PRZYCISK_ZAPISZ_DDR DDRC
+#define PRZYCISK_ZAPISZ_PORT PORTC
+#define PRZYCISK_ZAPISZ_PIN PINC
+#define PRZYCISK_ZAPISZ_P PC5
+#define PRZYCISK_ZAPISZ_NR 5
+
 #define PRZEKAZNIK_KTORY_DDR DDRC
 #define PRZEKAZNIK_KTORY_PORT PORTC
 #define PRZEKAZNIK_TEMP_P PC3
@@ -49,5 +55,6 @@ void wlacz_mieszanie();
 void wylacz_grzanie();
 void wylacz_mieszanie();
 void wytrawianie_init();
+void zapisz_domyslne();
 
 #endif // _WYTRAWIANIE_H

@@ -15,8 +15,8 @@ void przekazniki_init()
 
 void przyciski_init()
 {
-    PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P));
-    PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P); // stan wysoki na przycisku, niski uruchamia
+    PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P) | (1 << PRZYCISK_ZAPISZ_P));
+    PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P) | (1 << PRZYCISK_ZAPISZ_P); // stan wysoki na przycisku, niski uruchamia
 
     //INT0 i INT1 niski stan wyzwala przerwanie
     DDRD &= ~((1 << PD2) | (1 << PD3));
@@ -132,6 +132,12 @@ void wytrawianie_init()
     LCD_WriteText("+");
 
     przyciski_init();
+}
+
+void zapisz_domyslne()
+{
+    LCD_GoTo(3,0);
+    LCD_WriteText("DUPA");
 }
 
 ISR(INT0_vect)

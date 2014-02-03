@@ -25,6 +25,8 @@ int main(void)
             ustaw_temp_aktywny();
         if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_NAPOW_NR))
             ustaw_napow_aktywny();
+        if(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR))
+            zapisz_domyslne();
         _delay_ms(50);
     }
 
