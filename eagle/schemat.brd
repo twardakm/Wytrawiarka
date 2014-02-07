@@ -211,15 +211,15 @@ Przekaznik</text>
 <text x="47.117" y="82.296" size="0.8128" layer="16" rot="MR0">BSS138</text>
 <text x="43.815" y="79.121" size="0.8128" layer="16" rot="MR270">BSS138</text>
 <text x="24.765" y="68.961" size="0.8128" layer="16" rot="MR180">ZEN 5,1V</text>
-<text x="82.677" y="89.662" size="0.8128" layer="16" rot="MR0">LM35</text>
+<text x="82.677" y="89.662" size="1.016" layer="16" rot="MR0">LM35</text>
 <text x="79.756" y="84.582" size="0.8128" layer="16" rot="MR0">+5V</text>
 <text x="81.788" y="84.126603125" size="0.6096" layer="16" rot="MR45">ADC</text>
-<text x="85.09" y="89.662" size="0.8128" layer="16" rot="MR270">GND</text>
+<text x="85.471" y="90.551" size="1.016" layer="16" rot="MR270">GND</text>
 <text x="69.596" y="71.12" size="0.8128" layer="16" rot="MR270">R10k</text>
 <text x="73.025" y="75.692" size="0.6096" layer="16" rot="MR0">C10u</text>
 <text x="72.39" y="79.375" size="0.4064" layer="16" rot="MR0">C100n</text>
 <text x="74.549" y="82.931" size="0.4064" layer="16" rot="MR270">C100n</text>
-<text x="67.31" y="81.661" size="0.4064" layer="16" rot="MR0">ATmega8</text>
+<text x="67.183" y="82.677" size="0.4064" layer="16" rot="MR0">ATmega8/88</text>
 <text x="59.69" y="75.184" size="0.8128" layer="16" rot="MR90">C100n</text>
 <text x="54.229" y="78.232" size="0.8128" layer="16" rot="MR0">C22p</text>
 <text x="57.15" y="78.232" size="0.8128" layer="16" rot="MR0">C22p</text>
@@ -328,6 +328,8 @@ Przekaznik</text>
 <text x="74.803" y="97.282" size="1.016" layer="16" rot="MR270">MIESZANIE</text>
 <text x="34.544" y="67.31" size="1.016" layer="16" rot="MR270">GND</text>
 <text x="62.738" y="72.644" size="0.8128" layer="16" rot="MR270">GND</text>
+<text x="56.134" y="64.262" size="0.6096" layer="16" rot="MR0">https://github.com/twardakm/</text>
+<text x="56.261" y="62.865" size="0.8128" layer="16" rot="MR0">Sterownik do wytrawiarki</text>
 </plain>
 <libraries>
 <library name="atmel">
