@@ -20,7 +20,7 @@
 	<avr/io.h>
 	<util/delay.h>
 
-1391371808 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
+1391780603 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<stdio.h>
