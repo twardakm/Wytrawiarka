@@ -16,13 +16,14 @@ int main(void)
     wytrawianie_init();
     ADC_Init();
     przekazniki_init();
-    timer_init();
+    //timer0_init();
+    //timer1_init();
     sei();
 
     while(1)
     {
-        if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_KTORY_NR))
-            zmien_aktywny();
+        /*if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_KTORY_NR))
+            zmien_aktywny();*/
         _delay_ms(50);
     }
 

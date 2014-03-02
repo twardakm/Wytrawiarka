@@ -42,7 +42,23 @@ void sprawdz_grzanie(int aktualna_temp)
     }
 }
 
-void timer_init()
+void timer0_init()
+{
+    TCCR0 |= (1 << CS02) | (1 << CS00); //preskaler 1024
+    TIMER_ZAPISZ = 0;
+}
+
+void timer0_wlacz_int()
+{
+    TIMSK |= (1 << TOIE0); //wlaczenie przerwania - okolo 1 s
+}
+
+void timer0_wylacz_int()
+{
+    TIMSK &= ~(1 << TOIE0); //wylaczenie przerwania
+}
+
+void timer1_init()
 {
     TCCR1B |= (1 << CS12); //preskaler 256
     TIMSK |= (1 << TOIE1); //wlaczenie przerwania - okolo 1 s
@@ -141,28 +157,43 @@ void zapisz_domyslne()
     if(EEPROM_read(EEPROM_NAPOW) != NAPOWIETRZANIE) EEPROM_write(EEPROM_NAPOW, NAPOWIETRZANIE);
     free(i);
 
+    timer0_wylacz_int();
+    TIMER_ZAPISZ = 0;
+    ZAPISANO = 1;
+
 //    while(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR)) {}
     LCD_Tekst_startowy();
 }
 
 void zmien_aktywny()
 {
-    if (AKTYWNY == 1)
+    timer0_wlacz_int();
+    while (bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_KTORY_NR));
+    timer0_wylacz_int();
+    if (ZAPISANO == 0)
     {
-        LCD_GoTo(15,0);
-        LCD_WriteText(" ");
-        LCD_GoTo(15,1);
-        LCD_WriteText("+");
-        AKTYWNY = 2;
+        if (AKTYWNY == 1)
+        {
+            LCD_GoTo(15,0);
+            LCD_WriteText(" ");
+            LCD_GoTo(15,1);
+            LCD_WriteText("+");
+            AKTYWNY = 2;
+        }
+        else
+        {
+            LCD_GoTo(15,1);
+            LCD_WriteText(" ");
+            LCD_GoTo(15,0);
+            LCD_WriteText("+");
+            AKTYWNY = 1;
+        }
     }
     else
     {
-        LCD_GoTo(15,1);
-        LCD_WriteText(" ");
-        LCD_GoTo(15,0);
-        LCD_WriteText("+");
-        AKTYWNY = 1;
+        ZAPISANO = 0;
     }
+    TIMER_ZAPISZ = 0;
     _delay_ms(250); // żeby nie przelaczal sie jak pojebany
 }
 
@@ -210,6 +241,17 @@ ISR(INT1_vect)
     GICR = 0;
     _delay_ms(OPOZNIENIE_MS);
     GICR = (1 << INT1) | (1 << INT0);
+}
+
+ISR(TIMER0_OVF_vect)
+{
+    if (TIMER_ZAPISZ < 60) //16 MHz / 1024 (preskaler) / 255 (8bit)
+        TIMER_ZAPISZ++;
+    else
+    {
+        TIMER_ZAPISZ = 0;
+        zapisz_domyslne();
+    }
 }
 
 ISR(TIMER1_OVF_vect)

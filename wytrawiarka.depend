@@ -2,7 +2,7 @@
 1391334828 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\fuse.c
 	<avr/io.h>
 
-1393758136 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
+1393765341 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\main.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -20,7 +20,7 @@
 	<avr/io.h>
 	<util/delay.h>
 
-1391793018 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
+1393763169 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<stdio.h>
@@ -29,12 +29,12 @@
 	"HD44780.h"
 	"wytrawianie.h"
 
-1391364561 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.h
+1393764433 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\adc.h
 
-1393758190 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.h
+1393759340 c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.h
 	"HD44780.h"
 
-1393758176 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.c
+1393760476 source:c:\users\marcin_2\synergia\wytrawiarka\wytrawiarka\wytrawianie.c
 	"wytrawianie.h"
 	"HD44780.h"
 	"EEPROM.h"
