@@ -131,7 +131,7 @@ void LCD_Initalize(void)
     LCD_DB7_DIR |= LCD_DB7; //
     LCD_E_DIR 	|= LCD_E;   //
     LCD_RS_DIR 	|= LCD_RS;  //
-    _delay_ms(15); // oczekiwanie na ustalibizowanie siê napiecia zasilajacego
+    _delay_ms(100); // oczekiwanie na ustalibizowanie siê napiecia zasilajacego
     LCD_RS_PORT &= ~LCD_RS; // wyzerowanie linii RS
     LCD_E_PORT &= ~LCD_E;  // wyzerowanie linii E
 
@@ -140,18 +140,18 @@ void LCD_Initalize(void)
         LCD_E_PORT |= LCD_E; //  E = 1
         _LCD_OutNibble(0x03); // tryb 8-bitowy
         LCD_E_PORT &= ~LCD_E; // E = 0
-        _delay_ms(5); // czekaj 5ms
+        _delay_ms(20); // czekaj 5ms
     }
 
     LCD_E_PORT |= LCD_E; // E = 1
     _LCD_OutNibble(0x02); // tryb 4-bitowy
     LCD_E_PORT &= ~LCD_E; // E = 0
 
-    _delay_ms(1); // czekaj 1ms
+    _delay_ms(10); // czekaj 1ms
     LCD_WriteCommand(HD44780_FUNCTION_SET | HD44780_FONT5x8 | HD44780_TWO_LINE | HD44780_4_BIT); // interfejs 4-bity, 2-linie, znak 5x7
     LCD_WriteCommand(HD44780_DISPLAY_ONOFF | HD44780_DISPLAY_OFF); // wy³¹czenie wyswietlacza
     LCD_WriteCommand(HD44780_CLEAR); // czyszczenie zawartosæi pamieci DDRAM
-    _delay_ms(2);
+    _delay_ms(20);
     LCD_WriteCommand(HD44780_ENTRY_MODE | HD44780_EM_SHIFT_CURSOR | HD44780_EM_INCREMENT);// inkrementaja adresu i przesuwanie kursora
     LCD_WriteCommand(HD44780_DISPLAY_ONOFF | HD44780_DISPLAY_ON | HD44780_CURSOR_OFF | HD44780_CURSOR_NOBLINK); // w³¹cz LCD, bez kursora i mrugania
 }

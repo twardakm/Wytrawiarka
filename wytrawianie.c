@@ -63,11 +63,22 @@ void ustaw_napow_aktywny()
 
 void ustaw_temp_aktywny()
 {
-    LCD_GoTo(15,1);
-    LCD_WriteText(" ");
-    LCD_GoTo(15,0);
-    LCD_WriteText("+");
-    AKTYWNY = 1;
+    if (AKTYWNY == 1)
+    {
+        LCD_GoTo(15,0);
+        LCD_WriteText(" ");
+        LCD_GoTo(15,1);
+        LCD_WriteText("+");
+        AKTYWNY = 2;
+    }
+    else
+    {
+        LCD_GoTo(15,1);
+        LCD_WriteText(" ");
+        LCD_GoTo(15,0);
+        LCD_WriteText("+");
+        AKTYWNY = 1;
+    }
 }
 
 void wlacz_grzanie()
