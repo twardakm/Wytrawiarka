@@ -8,7 +8,7 @@
 void przekazniki_init()
 {
     PRZEKAZNIK_KTORY_DDR |= (1 << PRZEKAZNIK_NAPOW_P) | (1 << PRZEKAZNIK_TEMP_P);
-    PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_NAPOW_P) | (1 << PRZEKAZNIK_TEMP_P); //domy�lnie wylaczone
+    PRZEKAZNIK_KTORY_PORT &= ~(1 << PRZEKAZNIK_NAPOW_P) | (1 << PRZEKAZNIK_TEMP_P); //domyœlnie wylaczone
 
     GRZANIE = 0;
     MIESZANIE = 0;
@@ -16,8 +16,8 @@ void przekazniki_init()
 
 void przyciski_init()
 {
-    PRZYCISK_KTORY_DDR &= ~((1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P) | (1 << PRZYCISK_ZAPISZ_P));
-    PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_TEMP_P) | (1 << PRZYCISK_NAPOW_P) | (1 << PRZYCISK_ZAPISZ_P); // stan wysoki na przycisku, niski uruchamia
+    PRZYCISK_KTORY_DDR &= ~(1 << PRZYCISK_KTORY_P);
+    PRZYCISK_KTORY_PORT |= (1 << PRZYCISK_KTORY_P); // stan wysoki na przycisku, niski uruchamia
 
     //INT0 i INT1 niski stan wyzwala przerwanie
     DDRD &= ~((1 << PD2) | (1 << PD3));
@@ -50,35 +50,6 @@ void timer_init()
     TIMER_ILE_SEK = 0;
     MIESZANIE_ILE_BEZ = 0;
     MIESZANIE_ILE_Z = 0;
-}
-
-void ustaw_napow_aktywny()
-{
-    LCD_GoTo(15,0);
-    LCD_WriteText(" ");
-    LCD_GoTo(15,1);
-    LCD_WriteText("+");
-    AKTYWNY = 2;
-}
-
-void ustaw_temp_aktywny()
-{
-    if (AKTYWNY == 1)
-    {
-        LCD_GoTo(15,0);
-        LCD_WriteText(" ");
-        LCD_GoTo(15,1);
-        LCD_WriteText("+");
-        AKTYWNY = 2;
-    }
-    else
-    {
-        LCD_GoTo(15,1);
-        LCD_WriteText(" ");
-        LCD_GoTo(15,0);
-        LCD_WriteText("+");
-        AKTYWNY = 1;
-    }
 }
 
 void wlacz_grzanie()
@@ -170,8 +141,29 @@ void zapisz_domyslne()
     if(EEPROM_read(EEPROM_NAPOW) != NAPOWIETRZANIE) EEPROM_write(EEPROM_NAPOW, NAPOWIETRZANIE);
     free(i);
 
-    while(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR)) {}
+//    while(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR)) {}
     LCD_Tekst_startowy();
+}
+
+void zmien_aktywny()
+{
+    if (AKTYWNY == 1)
+    {
+        LCD_GoTo(15,0);
+        LCD_WriteText(" ");
+        LCD_GoTo(15,1);
+        LCD_WriteText("+");
+        AKTYWNY = 2;
+    }
+    else
+    {
+        LCD_GoTo(15,1);
+        LCD_WriteText(" ");
+        LCD_GoTo(15,0);
+        LCD_WriteText("+");
+        AKTYWNY = 1;
+    }
+    _delay_ms(250); // żeby nie przelaczal sie jak pojebany
 }
 
 ISR(INT0_vect)

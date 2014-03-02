@@ -21,10 +21,8 @@ int main(void)
 
     while(1)
     {
-        if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_TEMP_NR))
-            ustaw_temp_aktywny();
-       /* if(!bit_is_clear(PRZYCISK_ZAPISZ_PIN, PRZYCISK_ZAPISZ_NR))
-            zapisz_domyslne();*/
+        if(bit_is_clear(PRZYCISK_KTORY_PIN, PRZYCISK_KTORY_NR))
+            zmien_aktywny();
         _delay_ms(50);
     }
 

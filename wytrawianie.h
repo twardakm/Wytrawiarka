@@ -13,16 +13,16 @@
 #define PRZYCISK_KTORY_DDR DDRC
 #define PRZYCISK_KTORY_PORT PORTC
 #define PRZYCISK_KTORY_PIN PINC
-#define PRZYCISK_TEMP_P PC3
-#define PRZYCISK_TEMP_NR 3
-#define PRZYCISK_NAPOW_P PC4
-#define PRZYCISK_NAPOW_NR 4
+#define PRZYCISK_KTORY_P PC3
+#define PRZYCISK_KTORY_NR 3
+/*#define PRZYCISK_NAPOW_P PC4
+#define PRZYCISK_NAPOW_NR 4*/
 
-#define PRZYCISK_ZAPISZ_DDR DDRC
+/*#define PRZYCISK_ZAPISZ_DDR DDRC
 #define PRZYCISK_ZAPISZ_PORT PORTC
 #define PRZYCISK_ZAPISZ_PIN PINC
 #define PRZYCISK_ZAPISZ_P PC1
-#define PRZYCISK_ZAPISZ_NR 1
+#define PRZYCISK_ZAPISZ_NR 1*/
 
 #define PRZEKAZNIK_KTORY_DDR DDRC
 #define PRZEKAZNIK_KTORY_PORT PORTC
@@ -48,13 +48,12 @@ void przekazniki_init();
 void przyciski_init();
 void sprawdz_grzanie(int aktualna_temp);
 void timer_init();
-void ustaw_napow_aktywny();
-void ustaw_temp_aktywny();
 void wlacz_grzanie();
 void wlacz_mieszanie();
 void wylacz_grzanie();
 void wylacz_mieszanie();
 void wytrawianie_init();
 void zapisz_domyslne();
+void zmien_aktywny();
 
 #endif // _WYTRAWIANIE_H
